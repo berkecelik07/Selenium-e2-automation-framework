@@ -1,4 +1,4 @@
-package com.berke.pages;
+package com.berkesolutions.pages;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.berke.testbase.BaseClass;
+import com.berkesolutions.testbase.BaseClass;
 
 public class DashboardPageElements {
 

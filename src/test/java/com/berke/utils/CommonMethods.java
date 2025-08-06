@@ -1,4 +1,4 @@
-package com.berke.utils;
+package com.berkesolutions.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.berke.testbase.PageInitializer;
+import com.berkesolutions.testbase.PageInitializer;
 
 public class CommonMethods extends PageInitializer{
 	
