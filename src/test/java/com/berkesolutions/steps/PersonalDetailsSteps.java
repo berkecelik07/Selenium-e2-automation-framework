@@ -1,11 +1,11 @@
-package com.berkesolutionssolutions.steps;
+package com.berkesolutions.steps;
 
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.berkesolutionssolutions.utils.CommonMethods;
+import com.berkesolutions.utils.CommonMethods;
 
 import io.cucumber.java.en.Then;
 

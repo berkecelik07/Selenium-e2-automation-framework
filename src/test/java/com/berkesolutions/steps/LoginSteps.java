@@ -1,4 +1,4 @@
-package com.berkesolutionssolutions.steps;
+package com.berkesolutions.steps;
 
 import java.net.PasswordAuthentication;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.junit.Assert;
 
-import com.berkesolutionssolutions.utils.CommonMethods;
-import com.berkesolutionssolutions.utils.ConfigsReader;
+import com.berkesolutions.utils.CommonMethods;
+import com.berkesolutions.utils.ConfigsReader;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;

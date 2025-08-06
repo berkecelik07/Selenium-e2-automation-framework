@@ -1,4 +1,4 @@
-package com.berkesolutionssolutions.practice;
+package com.berkesolutions.practice;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
