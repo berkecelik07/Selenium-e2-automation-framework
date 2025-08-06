@@ -1,4 +1,4 @@
-package com.berkesolutionssolutions.steps;
+package com.berkesolutions.steps;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

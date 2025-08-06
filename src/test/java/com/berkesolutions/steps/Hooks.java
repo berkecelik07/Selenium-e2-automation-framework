@@ -1,6 +1,6 @@
-package com.berkesolutionssolutions.steps;
+package com.berkesolutions.steps;
 
-import com.berkesolutionssolutions.utils.CommonMethods;
+import com.berkesolutions.utils.CommonMethods;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;

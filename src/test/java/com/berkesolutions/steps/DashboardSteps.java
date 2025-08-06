@@ -1,4 +1,4 @@
-package com.berkesolutionssolutions.steps;
+package com.berkesolutions.steps;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
-import com.berkesolutionssolutions.pages.DashboardPageElements;
-import com.berkesolutionssolutions.utils.CommonMethods;
+import com.berkesolutions.pages.DashboardPageElements;
+import com.berkesolutions.utils.CommonMethods;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
