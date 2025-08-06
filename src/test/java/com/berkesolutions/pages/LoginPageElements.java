@@ -1,11 +1,11 @@
-package com.berkesolutionssolutions.pages;
+package com.berkesolutions.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.berkesolutionssolutions.utils.CommonMethods;
-import com.berkesolutionssolutions.utils.ConfigsReader;
+import com.berkesolutions.utils.CommonMethods;
+import com.berkesolutions.utils.ConfigsReader;
 
 public class LoginPageElements extends CommonMethods{
 
