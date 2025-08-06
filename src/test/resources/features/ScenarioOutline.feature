@@ -11,5 +11,5 @@ Feature: Scenario Outline Example
       | username | password | fullname       |
       | Scott    | s1234    | Scott Seyrek   |
       | Erhan    | e1234    | Erhan Gundogdu |
-      | berkesolutions    | b1234    | berkesolutions Celik    |
+      | berkesolutionssolutions    | b1234    | berkesolutionssolutions Celik    |
       

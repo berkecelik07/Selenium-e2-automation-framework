@@ -1,4 +1,4 @@
-package com.berkesolutions.steps;
+package com.berkesolutionssolutions.steps;
 
 import java.util.List;
 import java.util.Map;

@@ -1,10 +1,10 @@
-package com.berkesolutions.testbase;
+package com.berkesolutionssolutions.testbase;
 
-import com.berkesolutions.pages.AddEmployeePageElements;
-import com.berkesolutions.pages.DashboardPageElements;
-import com.berkesolutions.pages.EmployeeListPageElements;
-import com.berkesolutions.pages.LoginPageElements;
-import com.berkesolutions.pages.PersonalDetailsPageElements;
+import com.berkesolutionssolutions.pages.AddEmployeePageElements;
+import com.berkesolutionssolutions.pages.DashboardPageElements;
+import com.berkesolutionssolutions.pages.EmployeeListPageElements;
+import com.berkesolutionssolutions.pages.LoginPageElements;
+import com.berkesolutionssolutions.pages.PersonalDetailsPageElements;
 
 public class PageInitializer extends BaseClass {
 	public static LoginPageElements loginPage;

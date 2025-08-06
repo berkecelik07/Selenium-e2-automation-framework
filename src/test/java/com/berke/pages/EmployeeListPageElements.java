@@ -1,10 +1,10 @@
-package com.berkesolutions.pages;
+package com.berkesolutionssolutions.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.berkesolutions.testbase.BaseClass;
+import com.berkesolutionssolutions.testbase.BaseClass;
 
 public class EmployeeListPageElements {
 
