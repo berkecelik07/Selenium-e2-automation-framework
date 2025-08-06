@@ -1,4 +1,4 @@
-package com.berkesolutions.utils;
+package com.berkesolutionssolutions.utils;
 
 public class Constants {
 	

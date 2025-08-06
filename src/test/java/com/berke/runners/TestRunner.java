@@ -1,4 +1,4 @@
-package com.berkesolutions.runners;
+package com.berkesolutionssolutions.runners;
 
 import org.junit.runner.RunWith;
 
@@ -11,7 +11,7 @@ import io.cucumber.junit.CucumberOptions;
 		features = "src/test/resources/features/",
 
 		// we can specify where the codes for the features are
-		glue = "com.berkesolutions.steps",
+		glue = "com.berkesolutionssolutions.steps",
 
 		// if true, it does not run the java functionality in the steps. Only checks the
 		// feature files

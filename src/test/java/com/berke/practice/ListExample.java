@@ -1,4 +1,4 @@
-package com.berkesolutions.practice;
+package com.berkesolutionssolutions.practice;
 
 import java.util.ArrayList;
 import java.util.List;
