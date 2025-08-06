@@ -1,4 +1,4 @@
-package com.berke.utils;
+package com.berkesolutions.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

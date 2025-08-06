@@ -1,4 +1,4 @@
-package com.berke.testbase;
+package com.berkesolutions.testbase;
 
 import java.time.Duration;
 
@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.berke.utils.ConfigsReader;
-import com.berke.utils.Constants;
+import com.berkesolutions.utils.ConfigsReader;
+import com.berkesolutions.utils.Constants;
 
 public class BaseClass {
 

@@ -1,4 +1,4 @@
-package com.berke.runners;
+package com.berkesolutions.runners;
 
 import org.junit.runner.RunWith;
 
@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features = "src/test/resources/features/",
-		glue = "com.neotech.steps",
+		glue = "com.berkesolutions.steps",
 		dryRun = false,
 		monochrome = true,
 		tags = "@menu",

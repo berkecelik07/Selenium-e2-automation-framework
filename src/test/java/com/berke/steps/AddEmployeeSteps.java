@@ -1,12 +1,12 @@
-package com.berke.steps;
+package com.berkesolutions.steps;
 
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
 
-import com.berke.utils.CommonMethods;
-import com.berke.utils.ExcelUtility;
+import com.berkesolutions.utils.CommonMethods;
+import com.berkesolutions.utils.ExcelUtility;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
