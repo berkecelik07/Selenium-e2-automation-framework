@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-
-import com.berkesolutions.pages.DashboardPageElements;
 import com.berkesolutions.utils.CommonMethods;
 
 import io.cucumber.datatable.DataTable;
