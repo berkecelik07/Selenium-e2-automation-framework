@@ -11,7 +11,7 @@ import io.cucumber.junit.CucumberOptions;
 		glue = "com.berkesolutions.steps",
 		dryRun = false,
 		monochrome = true,
-		tags = "@menu",
+		tags = "@regression",
 		plugin = {
 					//"pretty", 
 					"html:target/cucumber-default-report.html",
