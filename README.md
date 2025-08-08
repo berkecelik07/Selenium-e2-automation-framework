@@ -1,2 +1,2 @@
 # Automation-framework-e2e
-End-to-end and API automation frameworks using Selenium, Cypress, and RestAssured
+End-to-end and API automation frameworks using Selenium and RestAssured
