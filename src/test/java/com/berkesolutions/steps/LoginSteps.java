@@ -1,6 +1,4 @@
 package com.berkesolutions.steps;
-
-import java.net.PasswordAuthentication;
 import java.util.List;
 import java.util.Map;
 
