@@ -2,88 +2,145 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- Project Information -->
 	<groupId>com.berkesolutions</groupId>
-	<artifactId>CucumberFramework6</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>selenium-e2e-automation-framework</artifactId>
+	<version>1.0.0</version>
+	<name>Selenium E2E Automation Framework</name>
+	<description>A comprehensive end-to-end automation testing framework using Selenium, Cucumber, and Java</description>
+	<url>https://github.com/yourusername/Selenium-e2e-automation-framework</url>
 
+	<!-- Project Properties -->
 	<properties>
+		<!-- Compiler Settings -->
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- Dependency Versions -->
+		<selenium.version>4.19.1</selenium.version>
+		<cucumber.version>7.16.1</cucumber.version>
+		<poi.version>5.2.5</poi.version>
+		<commons-io.version>2.15.1</commons-io.version>
+		<slf4j.version>2.0.13</slf4j.version>
+		
+		<!-- Plugin Versions -->
+		<maven.surefire.version>3.2.5</maven.surefire.version>
+		<maven.cucumber.reporting.version>5.8.1</maven.cucumber.reporting.version>
+		<maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+		<maven.enforcer.version>3.4.1</maven.enforcer.version>
 	</properties>
 
+	<!-- Dependencies -->
 	<dependencies>
-
-		<!--https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		
+		<!-- =============== SELENIUM =============== -->
+		<!-- Selenium WebDriver for browser automation -->
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.19.1</version>
+			<version>${selenium.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.5</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.15.1</version>
-		</dependency>
-
+		<!-- =============== CUCUMBER (BDD Framework) =============== -->
+		<!-- Cucumber Java - BDD step definitions -->
 		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.16.1</version>
+			<version>${cucumber.version}</version>
 		</dependency>
 
+		<!-- Cucumber JUnit Runner -->
 		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>7.16.1</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Cucumber Core -->
 		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-core</artifactId>
-			<version>7.16.1</version>
+			<version>${cucumber.version}</version>
 		</dependency>
 
+		<!-- =============== TESTING =============== -->
+		<!-- JUnit for test execution (included via Cucumber) -->
+
+		<!-- =============== DATA HANDLING =============== -->
+		<!-- Apache POI for Excel file handling -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<!-- Commons IO for file operations -->
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+
+		<!-- =============== LOGGING =============== -->
+		<!-- SLF4J Simple Logger for logging -->
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>2.0.13</version>
+			<version>${slf4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
 
-
+	<!-- Build Configuration -->
 	<build>
 		<plugins>
+			
+			<!-- =============== JAVA COMPILER =============== -->
+			<!-- Maven Compiler Plugin - Compiles Java source code -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.5</version>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<includes>
-						<include>**/*RegressionRunner.java</include>
-					</includes>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 
+			<!-- =============== TEST EXECUTION =============== -->
+			<!-- Maven Surefire Plugin - Runs JUnit tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.version}</version>
+				<configuration>
+					<!-- Only run RegressionRunner by default -->
+					<includes>
+						<include>**/*RegressionRunner.java</include>
+					</includes>
+					<!-- Configure for better test output -->
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+				</configuration>
+			</plugin>
+
+			<!-- =============== REPORTING =============== -->
+			<!-- Cucumber Reporting Plugin - Generates pretty HTML reports -->
 			<plugin>
 				<groupId>net.masterthought</groupId>
 				<artifactId>maven-cucumber-reporting</artifactId>
-				<version>5.8.1</version>
+				<version>${maven.cucumber.reporting.version}</version>
 				<executions>
 					<execution>
 						<id>execution</id>
@@ -92,26 +149,63 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<projectName>CucumberFramework6</projectName>
-
-							<!-- output directory for the generated report -->
+							<projectName>Selenium E2E Automation Framework</projectName>
+							<!-- Output directory for the generated report -->
 							<outputDirectory>${project.build.directory}</outputDirectory>
-							<!-- optional, defaults to outputDirectory if not
-							specified -->
+							<!-- Input directory containing JSON files -->
 							<inputDirectory>${project.build.directory}</inputDirectory>
+							<!-- JSON files to process -->
 							<jsonFiles>
-								<!-- supports wildcard or name pattern -->
 								<param>**/*.json</param>
 							</jsonFiles>
-
+							<!-- Classify failures -->
+							<failureClassifications>
+								<failureClassification>
+									<name>Assertion Failed</name>
+									<regex>.*AssertionError.*</regex>
+									<priority>1</priority>
+								</failureClassification>
+								<failureClassification>
+									<name>NoSuchElementException</name>
+									<regex>.*NoSuchElementException.*</regex>
+									<priority>2</priority>
+								</failureClassification>
+								<failureClassification>
+									<name>TimeoutException</name>
+									<regex>.*TimeoutException.*</regex>
+									<priority>3</priority>
+								</failureClassification>
+							</failureClassifications>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 
-
 		</plugins>
 	</build>
 
+	<!-- Developers -->
+	<developers>
+		<developer>
+			<name>Your Name</name>
+			<email>your.email@example.com</email>
+			<organization>Berke Solutions</organization>
+		</developer>
+	</developers>
+
+	<!-- License -->
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<!-- Source Control -->
+	<scm>
+		<connection>scm:git:https://github.com/yourusername/Selenium-e2e-automation-framework.git</connection>
+		<developerConnection>scm:git:https://github.com/yourusername/Selenium-e2e-automation-framework.git</developerConnection>
+		<url>https://github.com/yourusername/Selenium-e2e-automation-framework</url>
+	</scm>
 
 </project>

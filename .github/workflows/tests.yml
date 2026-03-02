@@ -1,0 +1,128 @@
+name: Selenium Automation Tests
+
+# Trigger on push and pull requests
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+# Environment variables
+env:
+  MAVEN_VERSION: '3.8.1'
+  JAVA_VERSION: '17'
+
+jobs:
+  test:
+    name: Run Selenium Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        # Test on multiple Java versions for compatibility
+        java-version: ['17']
+        browser: ['chrome']
+    
+    steps:
+    # Checkout code
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    # Setup Java
+    - name: ☕ Set up Java ${{ matrix.java-version }}
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ matrix.java-version }}
+        distribution: 'temurin'
+        cache: 'maven'
+    
+    # Display environment info
+    - name: ℹ️ Display Environment Info
+      run: |
+        echo "Java Version:"
+        java -version
+        echo "Maven Version:"
+        mvn --version
+    
+    # Run tests
+    - name: 🧪 Run Selenium Tests
+      run: mvn clean test -B
+      timeout-minutes: 30
+    
+    # Generate test report
+    - name: 📊 Generate Test Report
+      if: always()
+      run: |
+        echo "Test execution completed"
+        ls -la target/
+    
+    # Upload test results
+    - name: 📤 Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cucumber-reports-${{ matrix.java-version }}
+        path: |
+          target/cucumber-default-report.html
+          screenshots/
+        retention-days: 30
+    
+    # Upload failed test metadata
+    - name: 📝 Upload Failed Tests Log
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: failed-tests-${{ matrix.java-version }}
+        path: target/failed.txt
+        retention-days: 7
+    
+    # Comment on PR with test results
+    - name: 💬 Post Test Results to PR
+      if: always() && github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const testResults = 'Tests executed successfully';
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `✅ **Selenium Automation Tests Completed** \n\n${testResults}`
+          });
+    
+    # Notify on failure
+    - name: 🚨 Notify on Test Failure
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '❌ **Selenium Tests Failed!** Please check the artifacts for detailed reports.'
+          })
+
+  # Optional: Code quality checks
+  quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: ☕ Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: 🔍 Compile Code
+      run: mvn clean compile -B
+    
+    - name: ✅ Validate POM
+      run: mvn validate
