@@ -1,0 +1,113 @@
+name: Scheduled Regression Tests
+
+# Only run on schedule (saves free tier minutes)
+on:
+  schedule:
+    # Run daily regression suite at 2:00 AM UTC Monday-Friday
+    - cron: '0 2 * * 1-5'
+    
+    # Run full test suite weekly on Sunday at 8:00 PM UTC
+    - cron: '0 20 * * 0'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+# Free tier GitHub Actions - 2000 minutes/month for private repos
+# This workflow is optimized to minimize free tier usage
+
+env:
+  MAVEN_OPTS: '-Xmx512m'
+  JAVA_VERSION: '17'
+
+jobs:
+  schedule-tests:
+    name: Scheduled Regression Tests
+    runs-on: ubuntu-latest
+    
+    # Only run once per schedule (don't run concurrently)
+    concurrency:
+      group: scheduled-tests
+      cancel-in-progress: false
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: ☕ Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: 'maven'
+    
+    - name: 📊 Show Scheduled Run Info
+      run: |
+        echo "🔄 Scheduled Test Run Started"
+        echo "Time: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+        echo "Trigger: ${{ github.event_name }}"
+        echo ""
+        echo "Java Version: $(java -version 2>&1)"
+        echo "Maven Version: $(mvn --version)"
+    
+    - name: 🧪 Run Full Regression Tests
+      run: |
+        echo "Running full regression test suite..."
+        mvn clean test \
+          -B \
+          -Denv=qa \
+          -Dcucumber.filter.tags="@regression" \
+          --fail-at-end
+      timeout-minutes: 45
+      continue-on-error: true
+    
+    - name: 📦 Collect Test Artifacts
+      if: always()
+      run: |
+        echo "Collecting test results..."
+        mkdir -p test-artifacts
+        cp -r target/cucumber-default-report.html test-artifacts/ 2>/dev/null || true
+        cp -r screenshots/ test-artifacts/ 2>/dev/null || true
+        ls -la test-artifacts/
+    
+    - name: 📤 Upload Test Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: scheduled-test-report-${{ github.run_number }}
+        path: test-artifacts/
+        retention-days: 14
+    
+    - name: ✅ Test Summary
+      if: always()
+      run: |
+        echo "# 📊 Scheduled Regression Test Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Test Execution Details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Schedule:** Daily (Mon-Fri @ 2 AM UTC) + Weekly (Sun @ 8 PM UTC)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Executed at:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "- **Repository:** ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Next Scheduled Run" >> $GITHUB_STEP_SUMMARY
+        echo "⏱️ Next runs will be automatically scheduled. Check [Actions](https://github.com/${{ github.repository }}/actions) tab for details." >> $GITHUB_STEP_SUMMARY
+    
+    - name: 🔔 Slack Notification (Optional)
+      if: failure()
+      uses: slackapi/slack-github-action@v1
+      with:
+        payload: |
+          {
+            "text": "❌ Scheduled Selenium Tests Failed",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "❌ *Scheduled Selenium Tests Failed*\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}\n*Run:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
